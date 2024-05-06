@@ -498,7 +498,7 @@ export async function _getItem(config) {
 		return fromUuid(config.saveItemUuid);
 	}
 	const target = config.event?.currentTarget;
-	if (!target) return console.log({config})
+	if (!target) return console.warn('AC5e could not get a relevant Item');
 	const id = target.closest("[data-message-id]").dataset.messageId;
 	const message = game.messages.get(id);
 	return fromUuid(message.flags.dnd5e.use.itemUuid);
