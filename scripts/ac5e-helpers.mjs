@@ -493,7 +493,7 @@ function activeModule(moduleID) {
 	return game.modules.get(moduleID)?.active;
 }
 
-export async function getItem(config) {
+export async function _getItem(config) {
 	if (game.modules.get('midi-qol')?.active) {
 		return fromUuid(config.saveItemUuid);
 	}
