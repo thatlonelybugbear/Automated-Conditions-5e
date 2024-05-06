@@ -492,3 +492,14 @@ export function _setAC5eProperties(ac5eConfig, where) {
 function activeModule(moduleID) {
 	return game.modules.get(moduleID)?.active;
 }
+
+export async function getItem(config) {
+	if (game.modules.get('midi-qol')?.active) {
+		return fromUuid(config.saveItemUuid);
+	}
+	const target = config.event?.currentTarget;
+	if (!target) return console.log({config})
+	const id = target.closest("[data-message-id]").dataset.messageId;
+	const message = game.messages.get(id);
+	return fromUuid(message.flags.dnd5e.use.itemUuid);
+}
