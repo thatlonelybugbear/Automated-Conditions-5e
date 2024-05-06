@@ -11,6 +11,7 @@ import {
 	_autoRanged,
 	_getTooltip,
 	_getConfig,
+	_getItem,
 	_setAC5eProperties,
 } from './ac5e-helpers.mjs';
 import Constants from './ac5e-constants.mjs';
@@ -24,6 +25,7 @@ export function _preRollAbilitySave(actor, config, abilityId) {
 	const sourceTokenID = config.messageData?.speaker?.token;
 	if (config.isConcentration) return true; //concentration handling in the _preRollConcentration.
 	let change = false;
+	const item = await _getItem(config);
 	const ac5eConfig = _getConfig(config, 'ability', sourceTokenID);
 	if (
 		ac5eConfig.preAC5eConfig &&
@@ -102,6 +104,7 @@ export function _preRollSkill(actor, config, skillId) {
 		return _calcAdvantageMode(ac5eConfig, config);
 	}
 	const { defaultAbility } = config.data;
+	const item = await _getItem(config);
 	//Exhaustion 1-5, Frightened, Poisoned conditions
 	let statuses = settings.autoExhaustion
 		? ['exhaustion', 'frightened', 'poisoned']
@@ -148,6 +151,7 @@ export function _preRollSkill(actor, config, skillId) {
 export function _preRollAbilityTest(actor, config, abilityId) {
 	let change = false;
 	const sourceTokenID = config.messageData?.speaker?.token;
+	const item = await _getItem(config);
 	const ac5eConfig = _getConfig(config, 'ability', sourceTokenID);
 	if (
 		ac5eConfig.preAC5eConfig &&
