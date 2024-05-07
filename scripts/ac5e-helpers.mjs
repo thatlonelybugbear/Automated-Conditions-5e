@@ -494,12 +494,13 @@ function activeModule(moduleID) {
 }
 
 export async function _getItem(config) {
-	if (game.modules.get('midi-qol')?.active) {
+	if (game.modules.get('midi-qol')?.active && config?.saveItemUuid) {
 		return fromUuid(config.saveItemUuid);
 	}
 	const target = config.event?.currentTarget;
 	if (!target) return console.warn('AC5e could not get a relevant Item');
-	const id = target.closest("[data-message-id]").dataset.messageId;
-	const message = game.messages.get(id);
-	return fromUuid(message.flags.dnd5e.use.itemUuid);
+	const id = target.closest("[data-message-id]")?.dataset?.messageId;
+	const message = id ? game.messages.get(id) : null;
+	if (message) return fromUuid(message.flags.dnd5e.use.itemUuid);
+	else return console.warn('AC5e could not get a relevant Item');
 }
