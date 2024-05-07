@@ -8,6 +8,8 @@ import {
 	_i18nConditions,
 	_autoArmor,
 	_autoEncumbrance,
+	_autoFlags,
+	_autoItems,
 	_autoRanged,
 	_getTooltip,
 	_getConfig,
@@ -88,6 +90,14 @@ export function _preRollAbilitySave(actor, config, abilityId) {
 		];
 		change = true;
 	}
+	if (_autoItems(actor, abilityId, item, ac5eConfig)) {
+		ac5eConfig = _autoItems(actor, abilityId, item, ac5eConfig);
+		change = true;
+	}
+	if (_autoFlags(actor, abilityId, item, ac5eConfig)) {
+		ac5eConfig = _autoItems(actor, abilityId, item, ac5eConfig);
+		change = true;
+	}
 	if (change) _setAC5eProperties(ac5eConfig, config);
 	return _calcAdvantageMode(ac5eConfig, config);
 }
@@ -144,6 +154,14 @@ export function _preRollSkill(actor, config, skillId) {
 		];
 		change = true;
 	}
+	if (_autoItems(actor, abilityId, item, ac5eConfig)) {
+		ac5eConfig = _autoItems(actor, abilityId, item, ac5eConfig);
+		change = true;
+	}
+	if (_autoFlags(actor, abilityId, item, ac5eConfig)) {
+		ac5eConfig = _autoItems(actor, abilityId, item, ac5eConfig);
+		change = true;
+	}
 	if (change) _setAC5eProperties(ac5eConfig, config);
 	return _calcAdvantageMode(ac5eConfig, config);
 }
@@ -190,6 +208,14 @@ export function _preRollAbilityTest(actor, config, abilityId) {
 		];
 		change = true;
 	}
+	if (_autoItems(actor, abilityId, item, ac5eConfig)) {
+		ac5eConfig = _autoItems(actor, abilityId, item, ac5eConfig);
+		change = true;
+	}
+	if (_autoFlags(actor, abilityId, item, ac5eConfig)) {
+		ac5eConfig = _autoItems(actor, abilityId, item, ac5eConfig);
+		change = true;
+	}
 	if (change) _setAC5eProperties(ac5eConfig, config);
 	return _calcAdvantageMode(ac5eConfig, config);
 }
@@ -217,6 +243,14 @@ export function _preRollDeathSave(actor, config) {
 		ac5eConfig.disadvantage = ac5eConfig.disadvantage?.length
 			? ac5eConfig.disadvantage.concat(_hasStatuses(actor, statuses))
 			: _hasStatuses(actor, statuses);
+		change = true;
+	}
+	if (_autoItems(actor, abilityId, item, ac5eConfig)) {
+		ac5eConfig = _autoItems(actor, abilityId, item, ac5eConfig);
+		change = true;
+	}
+	if (_autoFlags(actor, abilityId, item, ac5eConfig)) {
+		ac5eConfig = _autoItems(actor, abilityId, item, ac5eConfig);
 		change = true;
 	}
 	if (change) _setAC5eProperties(ac5eConfig, config);
@@ -253,6 +287,14 @@ export function _preRollConcentration(actor, config) {
 	let itemName = 'AC5E.WarCaster';
 	if (_hasItem(actor, itemName)) {
 		ac5eConfig.advantage = [...ac5eConfig.advantage, _localize(itemName)];
+		change = true;
+	}
+	if (_autoItems(actor, abilityId, item, ac5eConfig)) {
+		ac5eConfig = _autoItems(actor, abilityId, item, ac5eConfig);
+		change = true;
+	}
+	if (_autoFlags({actors: [actor], abilityId, item, ac5eConfig)) {
+		ac5eConfig = _autoFlags(actor, abilityId, item, ac5eConfig);
 		change = true;
 	}
 	if (change) _setAC5eProperties(ac5eConfig, config);
@@ -438,6 +480,14 @@ export function _preRollAttack(item, config) {
 		);
 		change = true;
 	}
+	if (_autoItems({actors:[sourceActor, targetActor], item, ac5eConfig, hook: 'attack'})) {
+		ac5eConfig = _autoItems({actors:[sourceActor, targetActor], item, ac5eConfig, hook: 'attack'});
+		change = true;
+	}
+	if (_autoFlags({actors:[sourceActor, targetActor], item, ac5eConfig, hook: 'attack'}) {
+		ac5eConfig = _autoFlags({actors:[sourceActor, targetActor], item, ac5eConfig, hook: 'attack'});
+		change = true;
+	}
 	if (change || ac5eConfig.critical.length)
 		_setAC5eProperties(ac5eConfig, config);
 	return _calcAdvantageMode(ac5eConfig, config);
@@ -494,6 +544,14 @@ export function _preRollDamage(item, config) {
 		change = true;
 	}
 	if (settings.debug) console.warn('preDamage ac5eConfig', ac5eConfig);
+	if (_autoItems({actors:[sourceActor, targetActor], item, ac5eConfig, hook: 'damage'})) {
+		ac5eConfig = _autoItems({actors:[sourceActor, targetActor], item, ac5eConfig, hook: 'attack'});
+		change = true;
+	}
+	if (_autoFlags({actors:[sourceActor, targetActor], item, ac5eConfig, hook: 'damage'}) {
+		ac5eConfig = _autoFlags({actors:[sourceActor, targetActor], item, ac5eConfig, hook: 'attack'});
+		change = true;
+	}
 	if (change || !!ac5eConfig.critical.length) {
 		_setAC5eProperties(ac5eConfig, config);
 		config.critical = true;
