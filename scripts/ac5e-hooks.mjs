@@ -95,7 +95,7 @@ export function _preRollAbilitySave(actor, config, abilityId) {
 		change = true;
 	}
 	if (_autoFlags(actor, abilityId, item, ac5eConfig)) {
-		ac5eConfig = _autoItems(actor, abilityId, item, ac5eConfig);
+		ac5eConfig = _autoFlags(actor, abilityId, item, ac5eConfig);
 		change = true;
 	}
 	if (change) _setAC5eProperties(ac5eConfig, config);
@@ -159,7 +159,7 @@ export function _preRollSkill(actor, config, skillId) {
 		change = true;
 	}
 	if (_autoFlags(actor, abilityId, item, ac5eConfig)) {
-		ac5eConfig = _autoItems(actor, abilityId, item, ac5eConfig);
+		ac5eConfig = _autoFlags(actor, abilityId, item, ac5eConfig);
 		change = true;
 	}
 	if (change) _setAC5eProperties(ac5eConfig, config);
@@ -213,7 +213,7 @@ export function _preRollAbilityTest(actor, config, abilityId) {
 		change = true;
 	}
 	if (_autoFlags(actor, abilityId, item, ac5eConfig)) {
-		ac5eConfig = _autoItems(actor, abilityId, item, ac5eConfig);
+		ac5eConfig = _autoFlags(actor, abilityId, item, ac5eConfig);
 		change = true;
 	}
 	if (change) _setAC5eProperties(ac5eConfig, config);
@@ -250,7 +250,7 @@ export function _preRollDeathSave(actor, config) {
 		change = true;
 	}
 	if (_autoFlags(actor, abilityId, item, ac5eConfig)) {
-		ac5eConfig = _autoItems(actor, abilityId, item, ac5eConfig);
+		ac5eConfig = _autoFlags(actor, abilityId, item, ac5eConfig);
 		change = true;
 	}
 	if (change) _setAC5eProperties(ac5eConfig, config);
