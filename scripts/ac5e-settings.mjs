@@ -13,12 +13,30 @@ export default class Settings {
 	static AUTOMATE_ENCUMBRANCE = 'autoEncumbrance';
 	static TARGETING = 'targeting';
 	static KEYPRESS_OVERRIDES = 'keypressOverrides';
+	static KEYBIND_OVERRIDE_ENFORCE = 'keyEnforceOverride';
 	static DEBUG = 'debugging';
 
 	registerSettings() {
 		this._registerWorldSettings();
+		this._registerKeybindings();
 	}
 
+	_registerKeybindings() {
+		game.keybindings.register(Constants.MODULE_ID, Settings.KEYBIND_OVERRIDE_ENFORCE, {
+			name: 'AC5E.KeybindOverrideEnforceName',
+			hint: 'AC5E.KeybindOverrideEnforceHint',
+			editable: [{ key: 'KeyZ' }],
+			restricted: false,
+		});
+	}
+
+	get overrideEnforceKey() {
+		return game.keybindings.get(
+			Constants.MODULE_ID,
+			Settings.KEYBIND_OVERRIDE_ENFORCE
+		)[0]?.key;
+	}
+	
 	_registerWorldSettings() {
 		const userRoles = {};
 		userRoles[CONST.USER_ROLES.PLAYER] = 'Player';
