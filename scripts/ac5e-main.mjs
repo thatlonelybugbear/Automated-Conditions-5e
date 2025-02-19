@@ -106,14 +106,14 @@ function ac5eButtonListeners() {
 }
 
 function getValidColor(color, fallback) {
-    const temp = document.createElement("div");
-    temp.style.color = color;
-    document.body.appendChild(temp);
-    const computedColor = window.getComputedStyle(temp).color;
-    document.body.removeChild(temp);
-    const match = computedColor.match(/\d+/g);
-    if (match && match.length === 3) {
-        return `#${match.map((n) => parseInt(n).toString(16).padStart(2, "0")).join("")}`;
-    }
-    return fallback; // If invalid, return the default color
+	const temp = document.createElement("div");
+	temp.style.color = color;
+	document.body.appendChild(temp);
+	const computedColor = window.getComputedStyle(temp).color;
+	document.body.removeChild(temp);
+	const match = computedColor.match(/\d+/g);
+	if (match && match.length === 3) {
+		return `#${match.map((n) => parseInt(n).toString(16).padStart(2, "0")).join("")}`;
+	}
+	return fallback; // If invalid, return the default color
 }
